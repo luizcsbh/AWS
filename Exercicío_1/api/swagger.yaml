@@ -1,0 +1,272 @@
+---
+swagger: "2.0"
+info:
+  description: "Este é um servidor simples para hospedar informações de uma Livraria\n"
+  version: "1.0.0"
+  title: "API para Livraria"
+  contact:
+    name: "Luiz Carlos dos Santos"
+    email: "luizcsbh@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/Luiz-Dev/Livraria/1.0.0"
+tags:
+- name: "book"
+  description: "Tudo sobre Livros"
+- name: "publishing company"
+  description: "Dados da Editora"
+- name: "category"
+  description: "Categoria de livros da Livraria"
+- name: "authors"
+  description: "Dados do Autor(es) do Livro"
+schemes:
+- "https"
+- "http"
+paths:
+  /books:
+    post:
+      tags:
+      - "books"
+      summary: "Adicionar um livro na livraria"
+      description: "Adicionar um livro sistema"
+      operationId: "AddLivros"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "ItemInventario"
+        description: "Adicionando item"
+        required: true
+        schema:
+          $ref: "#/definitions/Book"
+      responses:
+        201:
+          description: "Item adicionado"
+        400:
+          description: "entrada inválida, objeto inválido"
+        405:
+          description: "Entrada inválida"
+        409:
+          description: "já existe um item"
+      x-swagger-router-controller: "Books"
+    put:
+      tags:
+      - "books"
+      summary: "Atualização de um livro existente"
+      operationId: "updateBook"
+      consumes:
+      - "aplication/json"
+      - "application/xml"
+      produces:
+      - "aplication/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "Corpo"
+        description: "Objeto livros precisa ser adicionado na Livraria"
+        required: true
+        schema:
+          $ref: "#/definitions/Book"
+      responses:
+        400:
+          description: "ID inválido fornecido"
+        404:
+          description: "Livro não encontrado"
+        405:
+          description: "Exceção de validação"
+      x-swagger-router-controller: "Books"
+  /books/{isbn}:
+    get:
+      tags:
+      - "books"
+      summary: "Encontrar um livro pelo ISBN"
+      description: "Retorna um único livro"
+      operationId: "getBookByIsbn"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "isbn"
+        in: "path"
+        description: "Informa ISBN do livro"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Operação bem sucedida"
+          schema:
+            $ref: "#/definitions/Book"
+        400:
+          description: "ISBN inválido fornecido"
+        404:
+          description: "Livro não encontrado"
+      x-swagger-router-controller: "Books"
+    post:
+      tags:
+      - "books"
+      summary: "Atualiza um livro da Livraria com os dados do formulário"
+      operationId: "updateBookWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "isbn"
+        in: "path"
+        description: "ISBN do Livro que precisa ser atualizado"
+        required: true
+        type: "string"
+        format: "isbn-10"
+      - name: "Título"
+        in: "formData"
+        description: "Atualização do Título do Livro"
+        required: false
+        type: "string"
+      - name: "idioma"
+        in: "formData"
+        description: "Atualização do Idioma do Livro"
+        required: false
+        type: "string"
+      responses:
+        405:
+          description: "Entrada inválida"
+      x-swagger-router-controller: "Books"
+    delete:
+      tags:
+      - "books"
+      summary: "Apagar um Livro"
+      operationId: "deletePet"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "chave"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "isbn"
+        in: "path"
+        description: "Livro apagado"
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "ISBN"
+        404:
+          description: "Livro não encontrado"
+      x-swagger-router-controller: "Books"
+definitions:
+  Book:
+    type: "object"
+    required:
+    - "isbn"
+    properties:
+      isbn:
+        type: "string"
+        format: "isbn-10"
+        example: "8576089343"
+      título:
+        type: "string"
+        example: "Introdução a ciência de dados"
+      idioma:
+        type: "string"
+        example: "Português"
+      datapublicacao:
+        type: "string"
+        format: "date"
+        example: "20-06-2016"
+      numpaginas:
+        type: "integer"
+        format: "int32"
+        example: 320
+      editora:
+        $ref: "#/definitions/Publisher"
+    example:
+      numpaginas: 320
+      isbn: "8576089343"
+      título: "Introdução a ciência de dados"
+      idioma: "Português"
+      datapublicacao: "20-06-2016"
+      editora:
+        editoraid: 0
+        name: "Alta Books"
+        authors:
+          nome: "Fenando Amaral"
+          authorid: 6
+  Publisher:
+    type: "object"
+    required:
+    - "editoraid"
+    properties:
+      editoraid:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+        example: "Alta Books"
+      authors:
+        $ref: "#/definitions/Authors"
+    example:
+      editoraid: 0
+      name: "Alta Books"
+      authors:
+        nome: "Fenando Amaral"
+        authorid: 6
+  Authors:
+    type: "object"
+    properties:
+      authorid:
+        type: "integer"
+        format: "int32"
+      nome:
+        type: "string"
+        example: "Fenando Amaral"
+    example:
+      nome: "Fenando Amaral"
+      authorid: 6
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      isbn:
+        type: "string"
+      quantitade:
+        type: "integer"
+        format: "int32"
+      dataEntrega:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        description: "Status da Encomenda"
+        enum:
+        - "colocar"
+        - "aprovado"
+        - "entregue"
+      complete:
+        type: "boolean"
+        default: false
+    xml:
+      name: "Encomendar"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
