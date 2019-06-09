@@ -15,12 +15,24 @@ basePath: "/Luiz-Dev/Livraria/1.0.0"
 tags:
 - name: "book"
   description: "Tudo sobre Livros"
-- name: "publishing company"
+- name: "publisher"
   description: "Dados da Editora"
 - name: "category"
   description: "Categoria de livros da Livraria"
 - name: "authors"
   description: "Dados do Autor(es) do Livro"
+- name: "user"
+  description: "Dados dos Usuários"
+- name: "order"
+  description: "Dados dos Pedidos"
+- name: "comment"
+  description: "Resenhas sobre o Livro"
+- name: "cart"
+  description: "Carrinhos de Compras"
+- name: "payment"
+  description: "Pagamento das compras"   
+- name: "apiresponse"
+  description: "API"
 schemes:
 - "https"
 - "http"
@@ -186,8 +198,14 @@ definitions:
         type: "integer"
         format: "int32"
         example: 320
+      price:
+        type: "string"
+        format: "int32"
+        example: "R$ 59,90"
       editora:
         $ref: "#/definitions/Publisher"
+      categoria:
+        $ref: "#/definitions/Category"
     example:
       numpaginas: 320
       isbn: "8576089343"
@@ -200,12 +218,26 @@ definitions:
         authors:
           nome: "Fenando Amaral"
           authorid: 6
+      categoria:
+        categoryid: 1
+        categorynome: "Voltas Aulas"
+  Category:
+    type: "object"
+    required:
+    - "categoryid"
+    properties:
+      categoryid:
+        type: "integer"
+        format: "int32"
+      categorynome:
+        type: "string"
+      
   Publisher:
     type: "object"
     required:
-    - "editoraid"
+    - "publisherid"
     properties:
-      editoraid:
+      publisherid:
         type: "integer"
         format: "int32"
       name:
@@ -221,6 +253,8 @@ definitions:
         authorid: 6
   Authors:
     type: "object"
+    required:
+    - "authorid"
     properties:
       authorid:
         type: "integer"
@@ -231,14 +265,44 @@ definitions:
     example:
       nome: "Fenando Amaral"
       authorid: 6
+  User:
+    type: "object"
+    required:
+    - "userid"
+    properties:
+      userid:
+        type: "integer"
+        format: "int32"
+      nome:
+        type: "string"
+      genero:
+        type: "string"
+      endereco:
+        type: "string"
+      cidade:
+        type: "string"
+      estado:
+        type: "string"
+      cep:
+        type: "integer"
+        format: "int32"
+    example:
+      userdi: 5
+      nome: "José da Silva"
+      genero: "Masculino"
+      endereco: "Avenida  Washington Luiz, 430  São Bernardo"
+      cidadde: "Belo Horizonte"
+      estado: "Minas Gerais"
+      cep: "31270705" 
   Order:
     type: "object"
+    required:
+    - "userid"
+    - "isbn"
     properties:
-      id:
+      orderid:
         type: "integer"
         format: "int64"
-      isbn:
-        type: "string"
       quantitade:
         type: "integer"
         format: "int32"
@@ -255,8 +319,58 @@ definitions:
       complete:
         type: "boolean"
         default: false
+      user:
+        $ref: "#/definitions/User"
+      isbn:
+        $ref: "#/definitions/Book"
     xml:
       name: "Encomendar"
+  Comment:
+    type: "object"
+    required:
+    - "isbn"
+    - "userid"
+    properties:
+      descricao:
+        type: "string"
+      user:
+        $ref: "#/definitions/User"
+      isbn:
+        $ref: "#/definitions/Book"
+  Cart:
+    type: "object"
+    required:
+    - "userid"
+    - "isbn"
+    - "orderid"
+    - "pagamentoid"
+    properties:
+      cartid:
+        type: "integer"
+        format: "int32"
+      quantidade:
+        type: "integer"
+        format: "int32"
+      subtotal:
+        type: "string"
+      user:
+        $ref: "#/definitions/User"
+      isbn:
+        $ref: "#/definitions/Book"
+      orderid:
+        $ref: "#/definitions/Order"
+      pagamento:
+        $ref: "#/definitions/Payment"  
+  Payment:
+    type: "object"
+    properties:
+      pagamentoid:
+        type: "integer"
+        format: "int32"
+      tipopagamento:
+        type: "string"
+      valor:
+        type: "string"
   ApiResponse:
     type: "object"
     properties:
@@ -267,6 +381,7 @@ definitions:
         type: "string"
       message:
         type: "string"
+    
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
