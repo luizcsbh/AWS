@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Livros App</title>
+</head>
+<body>
+
+    <div>
+        <h2>All Livros</h2>
+        <ul isbn="books" />
+    </div>
+    <div>
+        <h2>Pesquisando ISBN</h2>
+        <input type="text" Isbn="isbn" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p Isbn="livro" />
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+    var uri = 'api/livros';
+
+    $(document).ready(function () {
+      // Send an AJAX request
+      $.getJSON(uri)
+          .done(function (data) {
+            // On success, 'data' contains a list of livros.
+            $.each(data, function (key, item) {
+              // Add a list item for the livro.
+              $('<li>', { text: formatItem(item) }).appendTo($('#livros'));
+            });
+          });
+    });
+
+    function formatItem(item) {
+      return item.Name + ': $' + item.Price;
+    }
+
+    function find() {
+      var isbn = $('#isbh').val();
+      $.getJSON(uri + '/' + id)
+          .done(function (data) {
+            $('#livro').text(formatItem(data));
+          })
+          .fail(function (jqXHR, textStatus, err) {
+            $('#livro').text('Error: ' + err);
+          });
+    }
+    </script>
+</body>
+</html>

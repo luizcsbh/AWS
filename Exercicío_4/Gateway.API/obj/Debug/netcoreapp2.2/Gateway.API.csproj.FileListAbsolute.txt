@@ -1,0 +1,14 @@
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.csprojAssemblyReference.cache
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.csproj.CoreCompileInputs.cache
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.RazorAssemblyInfo.cache
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.RazorAssemblyInfo.cs
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.AssemblyInfoInputs.cache
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.AssemblyInfo.cs
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\bin\Debug\netcoreapp2.2\Gateway.API.deps.json
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\bin\Debug\netcoreapp2.2\Gateway.API.runtimeconfig.json
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\bin\Debug\netcoreapp2.2\Gateway.API.runtimeconfig.dev.json
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\bin\Debug\netcoreapp2.2\Gateway.API.dll
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\bin\Debug\netcoreapp2.2\Gateway.API.pdb
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.RazorTargetAssemblyInfo.cache
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.dll
+C:\Users\lcsan\Documents\Github\AWS\Exercicío_4\Gateway.API\obj\Debug\netcoreapp2.2\Gateway.API.pdb
